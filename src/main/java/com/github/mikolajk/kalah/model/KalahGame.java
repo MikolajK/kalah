@@ -8,6 +8,7 @@ import java.util.Map;
 public class KalahGame {
 
     private int id;
+    private int activePlayer;
     private Map<Integer, Integer> gameState;
 
 }
