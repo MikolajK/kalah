@@ -3,6 +3,7 @@ package com.github.mikolajk.kalah.service;
 import com.github.mikolajk.kalah.constant.PlayerId;
 import com.github.mikolajk.kalah.exception.IllegalMoveException;
 import com.github.mikolajk.kalah.model.KalahGame;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import static com.github.mikolajk.kalah.constant.PitId.PLAYER_TWO_KALAH;
 import static com.github.mikolajk.kalah.constant.PitId.PLAYER_TWO_PITS;
 
 @Component
+@Slf4j
 public class KalahGameMoveHandler {
 
     public void performMove(KalahGame game, int pitId) {
@@ -44,6 +46,8 @@ public class KalahGameMoveHandler {
         int opponentsKalah;
         int playerKalah;
         List<Integer> playerPits;
+
+        log.info("Game {} - moving stones from pit {}", game.getId(), pitId);
 
         if (game.getActivePlayer() == PlayerId.PLAYER_ONE_ID) {
             opponentsKalah = PLAYER_TWO_KALAH;
@@ -80,6 +84,7 @@ public class KalahGameMoveHandler {
                     int opposingPit = (playerKalah + (playerKalah - currentPitIdLimitedToBoard)) % 14;
                     gameState.put(playerKalah, gameState.get(playerKalah) + gameState.get(opposingPit));
                     gameState.put(opposingPit, 0);
+                    log.info("Landed in empty pit {}, capturing pit {}", currentPitIdLimitedToBoard, opposingPit);
                 }
                 boolean gameOver = checkAndHandleGameOver(game);
                 if (!gameOver) {
