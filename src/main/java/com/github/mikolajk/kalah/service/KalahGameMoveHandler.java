@@ -61,8 +61,8 @@ public class KalahGameMoveHandler {
 
         gameState.put(pitId, 0);
         int movesMade = 0;
-        int bound = pitId + movesAmount;
-        for (int currentPitId = pitId + 1; currentPitId <= bound; currentPitId++) {
+        int unboundLastPitId = pitId + movesAmount;
+        for (int currentPitId = pitId + 1; currentPitId <= unboundLastPitId; currentPitId++) {
 
             int currentPitIdLimitedToBoard = currentPitId > PLAYER_TWO_KALAH ? (currentPitId % 14) : currentPitId;
             if (currentPitIdLimitedToBoard != opponentsKalah) {
@@ -91,8 +91,6 @@ public class KalahGameMoveHandler {
 
             }
         }
-
-
     }
 
     private boolean checkAndHandleGameOver(KalahGame game) {
