@@ -81,16 +81,27 @@ public class KalahGameMoveHandler {
                     gameState.put(playerKalah, gameState.get(playerKalah) + gameState.get(opposingPit));
                     gameState.put(opposingPit, 0);
                 }
+                boolean gameOver = checkAndHandleGameOver(game);
+                if (!gameOver) {
+                    game.setActivePlayer(currentPitIdLimitedToBoard ==
+                            playerKalah ?
+                            game.getActivePlayer() :
+                            (game.getActivePlayer() % 2) + 1);
+                }
+
             }
         }
-        checkAndHandleGameOver(game);
+
+
     }
 
-    private void checkAndHandleGameOver(KalahGame game) {
+    private boolean checkAndHandleGameOver(KalahGame game) {
         if (getTotalAmountOfStones(game, PlayerId.PLAYER_ONE_ID) == 0
                 || getTotalAmountOfStones(game, PlayerId.PLAYER_TWO_ID) == 0) {
             endGame(game);
+            return true;
         }
+        return false;
     }
 
     private void endGame(KalahGame game) {

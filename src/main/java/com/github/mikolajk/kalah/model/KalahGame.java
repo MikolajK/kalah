@@ -1,10 +1,12 @@
 package com.github.mikolajk.kalah.model;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.Map;
 
-@Value
+@Data
+@AllArgsConstructor
 public class KalahGame {
 
     private int id;

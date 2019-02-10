@@ -44,6 +44,19 @@ public class KalahGameMoveHandlerTest {
         assertThat(newGameState.get(pitId)).isEqualTo(0);
         assertThat(newGameState.get(PitId.PLAYER_ONE_KALAH)).isEqualTo(1);
         assertStonesInPitAreCorrect(newGameState, 7, 4, 5, 6, 8, 9);
+        assertThat(newGame.getActivePlayer()).isEqualTo(2);
+    }
+
+    @Test
+    public void performMove_extraTurn_performsMoveDoesNotChangeActivePlayer() {
+        // Given
+        KalahGame game = new KalahGame(0, PlayerId.PLAYER_ONE_ID, extraTurnPossibleGameState());
+
+        // When
+        gameMoveHandler.performMove(game, 6);
+
+        assertThat(game.getActivePlayer()).isEqualTo(PlayerId.PLAYER_ONE_ID);
+        assertThat(game.getGameState().get(PitId.PLAYER_ONE_KALAH)).isEqualTo(6);
     }
 
     @Test
@@ -64,6 +77,7 @@ public class KalahGameMoveHandlerTest {
         assertThat(newGameState.get(11)).isEqualTo(0);
         assertThat(newGameState.get(3)).isEqualTo(0);
         assertStonesInPitAreCorrect(newGameState, 1, 1, 2, 9, 10, 12, 13);
+        assertThat(game.getActivePlayer()).isEqualTo(2);
     }
 
     @Test
@@ -80,6 +94,7 @@ public class KalahGameMoveHandlerTest {
         assertStonesInPitAreCorrect(newGameState, 0, PitId.PLAYER_TWO_PITS.toArray(new Integer[]{}));
         assertThat(newGameState.get(PitId.PLAYER_ONE_KALAH)).isEqualTo(37);
         assertThat(newGameState.get(PitId.PLAYER_TWO_KALAH)).isEqualTo(35);
+        assertThat(game.getActivePlayer()).isEqualTo(1);
     }
 
     @Test
@@ -163,5 +178,12 @@ public class KalahGameMoveHandlerTest {
         // Starting game state: empty kalahs, 6 stones in each pit
         return IntStream.rangeClosed(1, 14).boxed().collect(toMap(identity(),
                 pitId -> pitId == PitId.PLAYER_ONE_KALAH || pitId == PitId.PLAYER_TWO_KALAH ? 0 : 6));
+    }
+
+    private Map<Integer, Integer> extraTurnPossibleGameState() {
+        Map<Integer, Integer> gameState = newGameState();
+        gameState.put(6, 1);
+        gameState.put(PitId.PLAYER_ONE_KALAH, 5);
+        return gameState;
     }
 }
