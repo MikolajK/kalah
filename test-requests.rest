@@ -1,0 +1,161 @@
+POST http://localhost:8080/games
+
+###
+
+PUT http://localhost:8080/games/0/pits/3
+
+###
+
+PUT http://localhost:8080/games/0/pits/11
+
+###
+
+PUT http://localhost:8080/games/0/pits/4
+
+###
+
+PUT http://localhost:8080/games/0/pits/9
+
+###
+
+PUT http://localhost:8080/games/0/pits/3
+
+###
+
+PUT http://localhost:8080/games/0/pits/13
+
+###
+
+PUT http://localhost:8080/games/0/pits/3
+
+###
+
+PUT http://localhost:8080/games/0/pits/11
+
+### Extra turn for player 1
+
+PUT http://localhost:8080/games/0/pits/4
+
+###
+
+PUT http://localhost:8080/games/0/pits/2
+
+###
+
+PUT http://localhost:8080/games/0/pits/9
+
+###
+
+PUT http://localhost:8080/games/0/pits/3
+
+###
+
+PUT http://localhost:8080/games/0/pits/12
+
+###
+
+PUT http://localhost:8080/games/0/pits/1
+
+###
+
+PUT http://localhost:8080/games/0/pits/11
+
+### Extra turn for player 1
+
+PUT http://localhost:8080/games/0/pits/4
+
+###
+
+PUT http://localhost:8080/games/0/pits/5
+
+###
+
+PUT http://localhost:8080/games/0/pits/10
+
+### Extra turn for player 1
+
+PUT http://localhost:8080/games/0/pits/5
+
+###
+
+PUT http://localhost:8080/games/0/pits/1
+
+### Extra turn for player 2
+
+PUT http://localhost:8080/games/0/pits/12
+
+###
+
+PUT http://localhost:8080/games/0/pits/9
+
+### Extra turn for player 1
+
+PUT http://localhost:8080/games/0/pits/5
+
+###
+
+PUT http://localhost:8080/games/0/pits/2
+
+###
+
+PUT http://localhost:8080/games/0/pits/11
+
+###
+
+PUT http://localhost:8080/games/0/pits/4
+
+###
+
+PUT http://localhost:8080/games/0/pits/12
+
+###
+
+PUT http://localhost:8080/games/0/pits/3
+
+###
+
+PUT http://localhost:8080/games/0/pits/13
+
+### Extra turn for player 1
+
+PUT http://localhost:8080/games/0/pits/5
+
+###
+
+PUT http://localhost:8080/games/0/pits/4
+
+###
+
+PUT http://localhost:8080/games/0/pits/8
+
+### Extra turn for player 1
+
+PUT http://localhost:8080/games/0/pits/5
+
+###
+
+PUT http://localhost:8080/games/0/pits/4
+
+###
+
+PUT http://localhost:8080/games/0/pits/8
+
+###
+
+PUT http://localhost:8080/games/0/pits/2
+
+### Extra turn for player 2
+
+PUT http://localhost:8080/games/0/pits/13
+
+###
+
+PUT http://localhost:8080/games/0/pits/12
+
+###
+
+PUT http://localhost:8080/games/0/pits/3
+
+### Game over - pit 11 has the only stone on player's 2 side. Player one wins
+
+PUT http://localhost:8080/games/0/pits/11
