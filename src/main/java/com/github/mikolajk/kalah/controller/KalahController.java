@@ -1,6 +1,5 @@
 package com.github.mikolajk.kalah.controller;
 
-import com.github.mikolajk.kalah.model.ErrorResponse;
 import com.github.mikolajk.kalah.model.KalahGameCreationResponse;
 import com.github.mikolajk.kalah.model.KalahGameStateResponse;
 import com.github.mikolajk.kalah.service.KalahService;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,12 +26,6 @@ public class KalahController {
     @Autowired
     public KalahController(KalahService kalahService) {
         this.kalahService = kalahService;
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<ErrorResponse> handleException(Exception exception) {
-        return new ResponseEntity<>(new ErrorResponse(exception.getMessage(), exception.getClass().getSimpleName()),
-                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/games", produces = APPLICATION_JSON_UTF8_VALUE)

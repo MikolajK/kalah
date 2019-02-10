@@ -1,5 +1,6 @@
 package com.github.mikolajk.kalah.service;
 
+import com.github.mikolajk.kalah.constant.PlayerId;
 import com.github.mikolajk.kalah.model.KalahGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class KalahGameCreator {
     }
 
     public KalahGame createNewGame() {
-        return new KalahGame(gameIdSupplier.get(), startingGameStateSupplier.get());
+        return new KalahGame(gameIdSupplier.get(), PlayerId.PLAYER_ONE_ID, startingGameStateSupplier.get());
     }
 
 }

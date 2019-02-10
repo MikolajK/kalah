@@ -1,6 +1,7 @@
 package com.github.mikolajk.kalah.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mikolajk.kalah.exception.IllegalMoveException;
 import com.github.mikolajk.kalah.model.ErrorResponse;
 import com.github.mikolajk.kalah.model.KalahGameCreationResponse;
 import com.github.mikolajk.kalah.model.KalahGameStateResponse;
@@ -52,7 +53,10 @@ public class KalahControllerTest {
 
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(kalahController).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(kalahController)
+                .setControllerAdvice(new GlobalExceptionHandler())
+                .build();
 
         when(kalahService.createNewGame()).thenReturn(GAME_ID);
         when(kalahService.makeMove(GAME_ID, PIT_ID)).thenReturn(EXPECTED_GAME_STATE);
@@ -107,14 +111,14 @@ public class KalahControllerTest {
     }
 
     @Test
-    public void makeMove_exceptionThrown_returnsInternalServerErrorWithDetails() throws Exception {
+    public void makeMove_incorrectMove_returnsConflictWithDetails() throws Exception {
         // Given
-        String exceptionMessage = "Something went wrong";
-        given(kalahService.makeMove(GAME_ID, PIT_ID)).willThrow(new RuntimeException(exceptionMessage));
+        String exceptionMessage = "Incorrect pit";
+        given(kalahService.makeMove(GAME_ID, PIT_ID)).willThrow(new IllegalMoveException(exceptionMessage));
 
         // When
         MvcResult mvcResult = mockMvc.perform(put(MAKE_MOVE_URL, GAME_ID, PIT_ID))
-                .andExpect(status().isInternalServerError())
+                .andExpect(status().isConflict())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
 
@@ -122,7 +126,7 @@ public class KalahControllerTest {
         Class<ErrorResponse> valueType = ErrorResponse.class;
         ErrorResponse responseBody = getResponse(mvcResult, valueType);
 
-        assertThat(responseBody.getException()).isEqualTo("RuntimeException");
+        assertThat(responseBody.getException()).isEqualTo("IllegalMoveException");
         assertThat(responseBody.getMessage()).isEqualTo(exceptionMessage);
     }
 

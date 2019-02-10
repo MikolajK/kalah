@@ -1,5 +1,6 @@
 package com.github.mikolajk.kalah.repository;
 
+import com.github.mikolajk.kalah.constant.PlayerId;
 import com.github.mikolajk.kalah.exception.GameIdConflictException;
 import com.github.mikolajk.kalah.model.KalahGame;
 import org.junit.Before;
@@ -17,7 +18,7 @@ import static org.junit.rules.ExpectedException.none;
 public class KalahGameRepositoryTest {
 
     private static final int EXISTING_GAME_ID = 0;
-    private static final KalahGame EXISTING_GAME = new KalahGame(EXISTING_GAME_ID, new HashMap<>());
+    private static final KalahGame EXISTING_GAME = new KalahGame(EXISTING_GAME_ID, PlayerId.PLAYER_ONE_ID, new HashMap<>());
 
     @Rule
     public ExpectedException expectedException = none();
@@ -54,7 +55,7 @@ public class KalahGameRepositoryTest {
     @Test
     public void storeGame_newGame_storesGame() {
         // When
-        KalahGame game = new KalahGame(1, new HashMap<>());
+        KalahGame game = new KalahGame(1, PlayerId.PLAYER_ONE_ID, new HashMap<>());
         kalahGameRepository.storeGame(game);
 
         // Then
@@ -69,7 +70,7 @@ public class KalahGameRepositoryTest {
         expectedException.expectMessage("Game with this ID already exists");
 
         // When
-        kalahGameRepository.storeGame(new KalahGame(EXISTING_GAME_ID, new HashMap<>()));
+        kalahGameRepository.storeGame(new KalahGame(EXISTING_GAME_ID, PlayerId.PLAYER_ONE_ID, new HashMap<>()));
     }
 
 
